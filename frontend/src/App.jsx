@@ -11,30 +11,51 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
 import Sidebar from "./components/Sidebar";
+import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./components/NotFound";
 
-// Layout component that conditionally renders the sidebar
 const AppLayout = () => {
   const location = useLocation();
-  const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/signup";
+  const privatePages = ["/dashboard", "/expenses"];
+  const isPrivatePage = privatePages.includes(location.pathname);
 
   return (
     <div className="flex flex-col min-h-screen bg-zinc-100">
-      {!isAuthPage && (
+      {isPrivatePage && (
         <header className="bg-white border border-b border-gray-50 text-black p-2">
           <h1 className="text-xl font-bold">Expense Tracker</h1>
         </header>
       )}
       <div className="flex flex-1">
-        {!isAuthPage && <Sidebar />}
+        {isPrivatePage && <Sidebar />}
         <div
-          className={`${isAuthPage ? "w-full" : "flex-1 ml-64"} bg-gray-100`}
+          className={`${isPrivatePage ? "flex-1 ml-64" : "w-full"} bg-gray-100`}
         >
           <Routes>
+            {/* Public Route */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/expenses" element={<Expenses />} />
+
+            {/* Private Route */}
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/expenses"
+              element={
+                <PrivateRoute>
+                  <Expenses />
+                </PrivateRoute>
+              }
+            />
+
+            {/* 404 route */}
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
       </div>

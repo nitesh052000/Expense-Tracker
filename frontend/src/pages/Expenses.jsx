@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import AddExpenseModal from "../components/AddExpenseDialogBox";
 import { Trash2, FilePenLine } from "lucide-react";
 import EditExpenseDialogBox from "../components/EditExpenseDialogBox";
+import { toast } from "react-toastify";
 
 const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
@@ -30,26 +31,35 @@ const Expenses = () => {
   };
 
   const handleAddExpense = async (e) => {
-    console.log("parent handleAddexpe");
-    const formData = new FormData(e.target);
+    e.preventDefault();
 
-    const data = {
-      amount: formData.get("amount"),
-      category: formData.get("category"),
-      description: formData.get("description"),
-      date: formData.get("date"),
-    };
+    try {
+      console.log("parent handleAddexpe");
+      const formData = new FormData(e.target);
 
-    console.log("form data", data);
-    const res = await axios.post(`${API_BASE_URL}/api/expenses`, data, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      const data = {
+        amount: formData.get("amount"),
+        category: formData.get("category"),
+        description: formData.get("description"),
+        date: formData.get("date"),
+      };
 
-    getAllExpenses();
+      console.log("form data", data);
+      const res = await axios.post(`${API_BASE_URL}/api/expenses`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    console.log("add expense", res);
+      toast.success("Expense Created Sucessfully");
+
+      getAllExpenses();
+
+      console.log("add expense", res);
+    } catch (error) {
+      console.log("Error in creating expense", error);
+      toast.error("Error in creating expense");
+    }
   };
 
   function closeModal() {
@@ -64,9 +74,11 @@ const Expenses = () => {
         },
       });
       console.log(`Expense with ID ${id} deleted successfully`, res);
+      toast.success("Expense Deleted Sucessfully");
       getAllExpenses();
     } catch (error) {
       console.log("error in deleting expense", error);
+      toast.error("Error in deleting expense");
     }
   };
 
@@ -92,11 +104,15 @@ const Expenses = () => {
         }
       );
 
-      console.log("Expense updated", res);
+      console.log("res", res);
+
+      toast.success("Expense Updated Sucessfully");
+
       getAllExpenses();
       setIsEditOpen(false); // Close the edit modal after saving
     } catch (error) {
       console.error("Error updating expense", error);
+      toast.error("Error in updating expense");
     }
   };
 
@@ -117,7 +133,7 @@ const Expenses = () => {
             </span>
             <button
               onClick={() => setIsOpen(true)}
-              className=" justify-end rounded-md border px-2.5 py-0.5 ml-auto cursor"
+              className=" justify-end rounded-md  px-2.5 py-0.5 ml-auto cursor bg-purple-300 hover:bg-purple-400 transition duration-400"
             >
               Add expense
             </button>
@@ -128,16 +144,16 @@ const Expenses = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left  uppercase font-bold">
                     Category
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left  uppercase font-bold">
                     amount
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left uppercase font-bold">
                     description
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  <th className="px-6 py-3 text-left  uppercase font-bold">
                     date
                   </th>
                   <th></th>
@@ -147,16 +163,16 @@ const Expenses = () => {
                 {expenses &&
                   expenses?.map((expense, index) => (
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-lg text-gray-700">
                         {expense?.category}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-lg text-gray-700">
                         {expense?.amount}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-lg text-gray-700">
                         {expense?.description}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
+                      <td className="px-6 py-4 text-lg text-gray-700">
                         {expense?.date &&
                           new Date(expense.date).toLocaleDateString("en-GB", {
                             day: "2-digit",
@@ -169,7 +185,7 @@ const Expenses = () => {
                           onClick={() => handleExpenseDelete(expense?._id)}
                           className="cursor-pointer"
                         >
-                          <Trash2 size={15} />
+                          <Trash2 size={20} />
                         </button>
                         <button
                           onClick={() => {
@@ -178,7 +194,7 @@ const Expenses = () => {
                           }}
                           className="cursor-pointer"
                         >
-                          <FilePenLine size={15} />
+                          <FilePenLine size={20} />
                         </button>
                       </div>
                     </tr>

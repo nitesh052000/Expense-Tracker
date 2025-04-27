@@ -90,9 +90,9 @@ const Signup = () => {
       {/* Right side - Image or Info Graphic */}
       <div className="hidden md:flex md:w-1/2 bg-purple-100 items-center justify-center relative">
         <img
-          src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b2a8ac65608331.5afa862ca7e21.png"
+          src="https://s3-alpha.figma.com/hub/file/6439917573/77e2518a-bb11-484c-baac-817f3525808e-cover.png"
           alt="Login Graphic"
-          className="max-w-md rounded-lg shadow-lg h-1/2"
+          className="w-full h-full p-2"
         />
       </div>
     </div>
