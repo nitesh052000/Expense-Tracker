@@ -11,6 +11,7 @@ const auth = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
+// all expenses routes for add, delete, edit, get
 router.post("/", auth, createExpense);
 router.get("/", auth, getExpenses);
 router.put("/:id", auth, updateExpense);

@@ -41,7 +41,7 @@ const Dashboard = () => {
     }
   };
 
-  // Prepare Data for Pie Chart (Category distribution)
+  //  Pie Chart (Category distribution)
   const categoryData = () => {
     const categoryMap = {};
 
@@ -68,7 +68,7 @@ const Dashboard = () => {
     };
   };
 
-  // Prepare Data for Bar Chart (Monthly Expenses)
+  //  Bar Chart (Monthly Expenses)
   const monthlyData = () => {
     const monthMap = {};
 

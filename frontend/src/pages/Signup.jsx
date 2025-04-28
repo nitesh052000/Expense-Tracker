@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
@@ -13,11 +14,16 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/auth/register`, form);
 
-    const res = await axios.post(`${API_BASE_URL}/api/auth/register`, form);
-
-    console.log("sighup res", res);
-    navigate("/");
+      console.log("sighup res", res);
+      toast.success("Sucessfully Sigh Up! Please Login");
+      navigate("/");
+    } catch (error) {
+      console.log("error in sighup", error);
+      toast.error("Error in sighing up");
+    }
   };
 
   return (

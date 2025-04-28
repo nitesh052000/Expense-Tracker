@@ -2,6 +2,7 @@
 import React from "react";
 import { LayoutDashboard, BanknoteArrowDown, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -9,12 +10,12 @@ const Sidebar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    toast.success("Logout Sucessfully");
     navigate("/");
   };
 
   return (
     <div className="h-screen w-64 bg-purple-100  flex flex-col justify-between p-6 fixed ml-2 my-2 rounded-2xl">
-      {/* Top: Profile and Navigation */}
       <div>
         {/* Profile */}
         <div className="flex flex-col items-center mb-10">

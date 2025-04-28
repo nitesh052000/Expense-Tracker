@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+// middleware function to check for auth before acccessing route
+
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization; // Get the entire header value
   let token;

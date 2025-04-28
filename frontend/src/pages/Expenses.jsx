@@ -15,6 +15,7 @@ const Expenses = () => {
   const token = localStorage.getItem("token");
   console.log("api", API_BASE_URL);
 
+  // GET API for all expenses
   const getAllExpenses = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/expenses`, {
@@ -30,6 +31,7 @@ const Expenses = () => {
     }
   };
 
+  // POST api for creating expenses
   const handleAddExpense = async (e) => {
     e.preventDefault();
 
@@ -66,6 +68,7 @@ const Expenses = () => {
     setIsOpen(false);
   }
 
+  // DELETE API for deleting expense
   const handleExpenseDelete = async (id) => {
     try {
       const res = await axios.delete(`${API_BASE_URL}/api/expenses/${id}`, {
@@ -82,6 +85,7 @@ const Expenses = () => {
     }
   };
 
+  // PUT api for editing expense
   const handleEditExpense = async (e) => {
     e.preventDefault();
 
@@ -159,6 +163,7 @@ const Expenses = () => {
                   <th></th>
                 </tr>
               </thead>
+              {/* {body} */}
               <tbody className="divide-y divide-gray-200">
                 {expenses &&
                   expenses?.map((expense, index) => (
@@ -207,12 +212,13 @@ const Expenses = () => {
         </div>
       </div>
 
+      {/* {Add expense modal to add expense} */}
       <AddExpenseModal
         isOpen={isOpen}
         closeModal={closeModal}
         handleAddExpense={handleAddExpense}
       />
-
+      {/* {Edit modal to edit expense} */}
       <EditExpenseDialogBox
         isOpen={isEditOpen}
         closeModal={() => setIsEditOpen(false)}

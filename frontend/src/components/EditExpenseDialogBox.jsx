@@ -9,13 +9,11 @@ const EditExpenseDialogBox = ({
 }) => {
   return (
     <Dialog open={isOpen} onClose={closeModal} className="relative z-50">
-      {/* Blurred background */}
       <div className="fixed inset-0 backdrop-blur-sm bg-white/30" />
 
       {/* Modal container */}
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <DialogPanel className="w-full max-w-md rounded-xl bg-white p-8 shadow-2xl relative">
-          {/* Close Button */}
           <button
             onClick={closeModal}
             className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl"

@@ -11,6 +11,7 @@ const Login = () => {
 
   console.log("url", API_BASE_URL);
 
+  // function to handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
 
