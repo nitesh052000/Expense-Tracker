@@ -117,5 +117,5 @@ cd Expense-Tracker
 For any queries or support, feel free to contact:
 
 **Nitesh**  
-Email: your-email@example.com
+Email: niteshkhandelwal0504@gmail.com
 
