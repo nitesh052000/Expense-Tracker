@@ -4,8 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -14,15 +17,17 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const res = await axios.post(`${API_BASE_URL}/api/auth/register`, form);
-
       console.log("sighup res", res);
       toast.success("Sucessfully Sigh Up! Please Login");
       navigate("/");
     } catch (error) {
       console.log("error in sighup", error);
       toast.error("Error in sighing up");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -78,12 +83,22 @@ const Signup = () => {
               placeholder="Min 8 Characters"
             />
           </div>
-          <button
-            type="submit"
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition duration-200"
-          >
-            SignUp
-          </button>
+          {isLoading ? (
+            <button
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition duration-200 flex items-center justify-center"
+            >
+              <Loader2 className="h-5 w-5 animate-spin" />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md transition duration-200"
+            >
+              SignUp
+            </button>
+          )}
+
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
             <a href="/" className="text-purple-600 hover:underline">
@@ -95,11 +110,7 @@ const Signup = () => {
 
       {/* Right side - Image or Info Graphic */}
       <div className="hidden md:flex md:w-1/2 bg-purple-100 items-center justify-center relative">
-        <img
-          src="https://s3-alpha.figma.com/hub/file/6439917573/77e2518a-bb11-484c-baac-817f3525808e-cover.png"
-          alt="Login Graphic"
-          className="w-full h-full p-2"
-        />
+        <img src="/expenseimamge.png" className="w-full h-full p-2" />
       </div>
     </div>
   );
