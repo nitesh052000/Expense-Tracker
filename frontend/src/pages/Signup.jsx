@@ -17,7 +17,7 @@ const Signup = () => {
     const res = await axios.post(`${API_BASE_URL}/api/auth/register`, form);
 
     console.log("sighup res", res);
-    navigate("/login");
+    navigate("/");
   };
 
   return (
@@ -80,7 +80,7 @@ const Signup = () => {
           </button>
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
-            <a href="/login" className="text-purple-600 hover:underline">
+            <a href="/" className="text-purple-600 hover:underline">
               Login
             </a>
           </p>

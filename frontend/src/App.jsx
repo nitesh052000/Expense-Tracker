@@ -33,7 +33,7 @@ const AppLayout = () => {
         >
           <Routes>
             {/* Public Route */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
 
             {/* Private Route */}

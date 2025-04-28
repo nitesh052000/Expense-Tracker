@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem("token");
 
   if (!token) {
-    return <Navigate to="/login" replace />; // Redirect to login if not authenticated
+    return <Navigate to="/" replace />; // Redirect to login if not authenticated
   }
 
   return children; // If token present, allow to go inside
